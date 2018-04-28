@@ -1,7 +1,8 @@
 auth-server: http://sso-login:8082/uaa
 server:
-  context-path: /client2
   port: 8084
+  servlet:
+    context-path: /client2
 security:
   oauth2:
     client:
@@ -9,6 +10,7 @@ security:
       client-secret: merryyousecrect2
       user-authorization-uri: ${auth-server}/oauth/authorize
       access-token-uri: ${auth-server}/oauth/token
+      registered-redirect-uri: http://sso-tmall:8084/client1
     resource:
       jwt:
         key-uri: ${auth-server}/oauth/token_key

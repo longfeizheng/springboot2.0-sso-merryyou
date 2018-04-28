@@ -1,6 +1,7 @@
 server:
   port: 8082
-  context-path: /uaa
+  servlet:
+    context-path: /uaa
 spring:
   freemarker:
     allow-request-override: false
@@ -16,3 +17,6 @@ spring:
     prefer-file-system-access: true
     suffix: .ftl
     template-loader-path: classpath:/templates/
+logging:
+  level:
+    org.springframework: debug

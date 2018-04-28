@@ -2,6 +2,7 @@ package cn.merryyou.sso.server;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -30,14 +31,16 @@ public class SsoAuthorizationServerConfig extends AuthorizationServerConfigurerA
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("merryyou1")
-                .secret("merryyousecrect1")
+                .secret(new BCryptPasswordEncoder().encode("merryyousecrect1"))
                 .authorizedGrantTypes("authorization_code", "refresh_token")
+//                .redirectUris("http://sso-taobao:8083/client1")
                 .scopes("all","read","write")
                 .autoApprove(true)
                 .and()
                 .withClient("merryyou2")
-                .secret("merryyousecrect2")
+                .secret(new BCryptPasswordEncoder().encode("merryyousecrect2"))
                 .authorizedGrantTypes("authorization_code", "refresh_token")
+//                .redirectUris("http://sso-tmall:8084/client2")
                 .scopes("all","read","write")
                 .autoApprove(true);
     }

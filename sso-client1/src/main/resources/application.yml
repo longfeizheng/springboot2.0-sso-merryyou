@@ -1,7 +1,8 @@
 auth-server: http://sso-login:8082/uaa # sso-server地址
 server:
-  context-path: /client1
   port: 8083
+  servlet:
+    context-path: /client1
 security:
   oauth2:
     client:
@@ -9,6 +10,10 @@ security:
       client-secret: merryyousecrect1
       user-authorization-uri: ${auth-server}/oauth/authorize #请求认证的地址
       access-token-uri: ${auth-server}/oauth/token #请求令牌的地址
+      registered-redirect-uri: http://sso-taobao:8083/client1
     resource:
       jwt:
         key-uri: ${auth-server}/oauth/token_key #解析jwt令牌所需要密钥的地址
+logging:
+  level:
+    org.springframework: debug
